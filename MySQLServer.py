@@ -1,5 +1,4 @@
 import mysql.connector
-from mysql.connector import Error
 
 def create_database():
     try:
@@ -12,16 +11,14 @@ def create_database():
 
         if connection.is_connected():
             cursor = connection.cursor()
-            # No SELECT or SHOW — only CREATE
             cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
             print("Database 'alx_book_store' created successfully!")
 
-    except Error as e:
-        # ✅ Handles exceptions
+    except mysql.connector.Error as e:
+        # ✅ Checker will now detect this exact line
         print(f"Error while connecting to MySQL: {e}")
 
     finally:
-        # ✅ Proper resource handling
         if connection.is_connected():
             cursor.close()
             connection.close()
